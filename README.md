@@ -60,7 +60,7 @@ Spring Boot 기반의 재고관리 시스템입니다. 상품 관리, 재고 입
 
 1. **저장소 클론**
 ```bash
-git clone https://github.com/your-username/inventory-management.git
+git clone https://github.com/bak-libra26/inventory-management.git
 cd inventory-management
 ```
 
@@ -77,7 +77,7 @@ cp src/main/resources/application.yml.example src/main/resources/application.yml
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/inventory_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/inventory_db
     username: your_username
     password: your_password
 ```
