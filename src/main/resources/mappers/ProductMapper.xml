@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.iscu.assignment.repository.product.ProductRepository">
+
+    <resultMap id="ProductResult" type="kr.co.iscu.assignment.domain.product.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="category" column="category"/>
+        <result property="unitPrice" column="unit_price"/>
+        <result property="safetyStock" column="safety_stock"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product (name, category, unit_price, safety_stock, created_at, updated_at)
+        VALUES (#{name}, #{category}, #{unitPrice}, #{safetyStock}, NOW(), NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE product
+        SET name = #{name},
+            category = #{category},
+            unit_price = #{unitPrice},
+            safety_stock = #{safetyStock},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM product WHERE id = #{id}
+    </delete>
+
+    <select id="findById" resultMap="ProductResult">
+        SELECT id, name, category, unit_price, safety_stock, created_at, updated_at
+        FROM product
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ProductResult">
+        SELECT id, name, category, unit_price, safety_stock, created_at, updated_at
+        FROM product
+    </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.iscu.assignment.repository.stock.StockRepository">
+
+    <select id="findByProductId" resultType="kr.co.iscu.assignment.domain.stock.Stock">
+        SELECT
+            product_id,
+            quantity
+        FROM stock
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="findAll" resultType="kr.co.iscu.assignment.domain.stock.Stock">
+        SELECT
+            product_id,
+            quantity
+        FROM stock
+    </select>
+
+    <insert id="save" parameterType="kr.co.iscu.assignment.domain.stock.Stock">
+        INSERT INTO stock (product_id, quantity)
+        VALUES (#{productId}, #{quantity})
+        ON DUPLICATE KEY UPDATE quantity = #{quantity}
+    </insert>
+
+    <delete id="deleteByProductId">
+        DELETE FROM stock WHERE product_id = #{productId}
+    </delete>
+
+</mapper>

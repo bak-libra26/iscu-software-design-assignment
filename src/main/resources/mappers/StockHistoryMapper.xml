@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.iscu.assignment.repository.stock.StockHistoryRepository">
+
+    <select id="findByProductId" resultType="kr.co.iscu.assignment.domain.stock.StockHistory">
+        SELECT
+            history_id,
+            product_id,
+            event_type,
+            quantity,
+            created_at
+        FROM stock_history
+        WHERE product_id = #{productId}
+        ORDER BY created_at DESC, history_id DESC
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="historyId">
+        INSERT INTO stock_history (product_id, event_type, quantity, created_at)
+        VALUES (#{productId}, #{eventType}, #{quantity}, COALESCE(#{createdAt}, NOW()))
+    </insert>
+
+    <select id="sumQuantityByEventTypeBetweenDates" resultType="int">
+        SELECT
+            COALESCE(SUM(quantity), 0)
+        FROM stock_history
+        WHERE product_id = #{productId}
+          AND event_type = #{eventType}
+          AND created_at BETWEEN #{startDate} AND #{endDate}
+    </select>
+
+    <delete id="deleteByProductId">
+        DELETE FROM stock_history WHERE product_id = #{productId}
+    </delete>
+
+</mapper>
